@@ -6,7 +6,11 @@
 
   <groupId>org.ktxdev</groupId>
   <artifactId>microservices</artifactId>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>customer</module>
+  </modules>
 
   <name>microservices</name>
   <url>http://www.ktxdev.org</url>
@@ -15,8 +19,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <pring.boot.maven.plugin.version>2.5.7</pring.boot.maven.plugin.version>
-    <pring.boot.dependencis.version>2.5.7</pring.boot.dependencis.version>
+    <spring.boot.maven.plugin.version>2.5.7</spring.boot.maven.plugin.version>
+    <spring.boot.dependencis.version>2.5.7</spring.boot.dependencis.version>
   </properties>
 
   <dependencies>
