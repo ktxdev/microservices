@@ -17,3 +17,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/fraud
     username: 'amigoscode'
     password: 'password'
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
