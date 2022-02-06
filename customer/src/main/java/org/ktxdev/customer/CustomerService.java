@@ -1,11 +1,12 @@
 package org.ktxdev.customer;
 
 import lombok.val;
+import org.ktxdev.clients.fraud.FraudClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public record CustomerService(CustomerRepository customerRepository, RestTemplate restTemplate) {
+public record CustomerService(CustomerRepository customerRepository, RestTemplate restTemplate, FraudClient fraudClient) {
 
     public void register(CustomerRegistrationRequest customerRequest) {
         Customer customer = Customer.builder()
@@ -16,14 +17,10 @@ public record CustomerService(CustomerRepository customerRepository, RestTemplat
 
         customerRepository.saveAndFlush(customer);
 
-        val response = restTemplate.getForObject(
-                "http://FRAUD/api/v1/fraud-check/{customerId}",
-                FraudCheckResponse.class,
-                customer.getId());
+        val response = fraudClient.isFraudster(customer.getId());
 
         if (response.isFraudster())
             throw new IllegalStateException("Fraudster");
-
 
     }
 }

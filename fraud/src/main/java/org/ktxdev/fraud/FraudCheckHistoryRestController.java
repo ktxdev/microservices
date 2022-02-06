@@ -1,6 +1,7 @@
 package org.ktxdev.fraud;
 
 import lombok.extern.slf4j.Slf4j;
+import org.ktxdev.clients.fraud.FraudCheckResponse;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
