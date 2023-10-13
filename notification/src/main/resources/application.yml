@@ -15,7 +15,7 @@ spring:
         format_sql: true
   datasource:
     url: jdbc:postgresql://localhost:5432/notification
-    username: 'amigoscode'
+    username: 'ktxdev'
     password: 'password'
 
   zipkin:
