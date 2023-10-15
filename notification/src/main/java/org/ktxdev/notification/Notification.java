@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @Builder
@@ -31,7 +32,7 @@ public class Notification {
 
     private String message;
 
-    private LocalDate sentAt;
+    private Date sentAt;
 
     private String sender;
 }

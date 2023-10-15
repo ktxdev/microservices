@@ -9,7 +9,12 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients(
         basePackages = "org.ktxdev.clients"
 )
-@SpringBootApplication
+@SpringBootApplication(
+        scanBasePackages = {
+                "org.ktxdev.amqp",
+                "org.ktxdev.customer"
+        }
+)
 public class CustomerApplication {
     public static void main(String[] args) {
         SpringApplication.run(CustomerApplication.class, args);

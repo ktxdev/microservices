@@ -1,6 +1,7 @@
 package org.ktxdev.customer;
 
 import lombok.val;
+import org.ktxdev.amqp.RabbitMQMessageProducer;
 import org.ktxdev.clients.fraud.FraudClient;
 import org.ktxdev.clients.notification.NotificationClient;
 import org.ktxdev.clients.notification.NotificationRequest;
@@ -8,9 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Service
-public record CustomerService(CustomerRepository customerRepository, FraudClient fraudClient, NotificationClient notificationClient) {
+public record CustomerService(CustomerRepository customerRepository,
+                              FraudClient fraudClient,
+                              RabbitMQMessageProducer rabbitMQMessageProducer) {
 
     public void register(CustomerRegistrationRequest customerRequest) {
         Customer customer = Customer.builder()
@@ -26,14 +30,13 @@ public record CustomerService(CustomerRepository customerRepository, FraudClient
         if (response.isFraudster())
             throw new IllegalStateException("Fraudster");
 
-        notificationClient.sendNotification(
-                NotificationRequest.builder()
-                        .toCustomerId(customer.getId())
-                        .toCustomerEmail(customer.getEmail())
-                        .message(String.format("Hi %s, welcome to Ktxdev.org...", customer.getFirstName()))
-                        .sentAt(LocalDate.now())
-                        .build()
+        NotificationRequest notificationRequest = NotificationRequest.builder()
+                .toCustomerId(customer.getId())
+                .toCustomerEmail(customer.getEmail())
+                .message(String.format("Hi %s, welcome to Ktxdev.org...", customer.getFirstName()))
+                .sentAt(new Date())
+                .build();
 
-        );
+        rabbitMQMessageProducer.publish(notificationRequest, "internal.exchange", "internal.notification.routing-key");
     }
 }

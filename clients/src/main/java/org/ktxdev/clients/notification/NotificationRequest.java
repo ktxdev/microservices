@@ -1,8 +1,11 @@
 package org.ktxdev.clients.notification;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @Builder
@@ -17,5 +20,5 @@ public class NotificationRequest {
 
     private String sender;
 
-    private LocalDate sentAt;
+    private Date sentAt;
 }
