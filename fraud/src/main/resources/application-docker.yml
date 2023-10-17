@@ -1,9 +1,9 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   application:
-    name: customer
+    name: fraud
 
   jpa:
     hibernate:
@@ -14,13 +14,11 @@ spring:
         dialect: org.hibernate.dialect.PostgresSQLDialect
         format_sql: true
   datasource:
-    url: jdbc:postgresql://postgres:5432/customer
+    url: jdbc:postgresql://postgres:5432/fraud
     username: 'ktxdev'
     password: 'password'
   zipkin:
     base-url: http://zipkin:9411
-  rabbitmq:
-    addresses: rabbitmq:5672
 eureka:
   client:
     service-url:
